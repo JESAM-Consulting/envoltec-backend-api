@@ -25,7 +25,8 @@
   },
   "USER_TYPE": {
     "USER": "user",
-    "ADMIN": "admin"
+    "ADMIN": "admin",
+    "SUPERADMIN": "superadmin"
   },
   "CHAT_TYPE": {
     "TEXT": "text",
