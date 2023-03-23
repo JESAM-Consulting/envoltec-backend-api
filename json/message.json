@@ -14,5 +14,6 @@
   "INVALID_ROLE": "Invalid role.",
 
   "OTP_EXPIRED": "OTP expired.",
-  "INVALID_FILE": "File upload error."
+  "INVALID_FILE": "File upload error.",
+  "INVALID_DATA": "Ungültiger Feldname: "
 }
