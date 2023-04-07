@@ -41,7 +41,7 @@ module.exports = exports = {
 
   /* Update Appointment API*/
   updateAppointment: async (req, res) => {
-    const update = await DB.APPOINTMENT.findByIdAndUpdate(req.params._id, data, { new: true, });
+    const update = await DB.APPOINTMENT.findByIdAndUpdate(req.params._id, req.body, { new: true, });
     if (!update) return apiResponse.NOT_FOUND({ res, message: messages.NOT_FOUND });
     return apiResponse.OK({ res, message: messages.SUCCESS });
   },

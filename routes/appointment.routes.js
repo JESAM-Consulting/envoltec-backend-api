@@ -7,7 +7,7 @@ const {
 
 /* Post Apis */
 router.post("/", VALIDATOR.create, APIS.createAppointment);
-router.post("/", VALIDATOR.fetch, APIS.getAppointment);
+router.get("/", VALIDATOR.fetch, APIS.getAppointment);
 
 /* Put Apis */
 router.put("/:_id", VALIDATOR.update, APIS.updateAppointment);
