@@ -14,75 +14,53 @@ module.exports = exports = {
 
     if (!req.file?.path) return apiResponse.BAD_REQUEST({ res, message: messages.NOT_FOUND })
 
-    csv()
-      .fromFile(req.file.path)
-      .then((jsonObj) => {
-        let i = Object.keys(jsonObj[0])
-        let validateKeys = [
-          'id',
-          'created_time',
-          'ad_id',
-          'ad_name',
-          'adset_id',
-          'adset_name',
-          'campaign_id',
-          'campaign_name',
-          'form_id',
-          'form_name',
-          'is_organic',
-          'platform',
-          'bist_du_derzeit_berufstätig?',
-          'wie_viel_vertriebserfahrung_hast_du?',
-          'bitte_wähle_die_auf_dich_zutreffende_antwort_aus:_ich_bin_...',
-          'beschreibe_in_wenigen_sätzen,_warum_du_energy_guide_der_energy_&_finance_werden_möchtest.',
-          'first_name',
-          'last_name',
-          'phone_number',
-          'email',
-          'state'
-        ]
-        if (!i.every((v, i) => v === validateKeys[i])) {
-          for (let j = 0; j < i.length; j++) {
-            if (i[j] !== validateKeys[j]) {
-              return apiResponse.BAD_REQUEST({ res, message: messages.INVALID_DATA + i[j] })
-            }
-          }
+    let results = [];
+    csv().fromFile(req.file.path).then(async (jsonObj) => {
+      for await (const i of jsonObj) {
+        const findExistPhone = await DB.APPLYNOW.findOne({ $or: [{ phone: i.phone }, { email: i.email }] });
+        if (!findExistPhone) {
+          results.push(i);
         }
-        Promise.all(jsonObj.map(async (x) => {
 
-          await DB.APPLYNOW.insertMany([
-            {
-              id: x['id'],
-              createdTime: x['created_time'],
-              adId: x['ad_id'],
-              adName: x['ad_name'],
-              adsetId: x['adset_id'],
-              adsetName: x['adset_name'],
-              campaignId: x['campaign_id'],
-              campaignName: x['campaign_name'],
-              formId: x['form_id'],
-              formName: x['form_name'],
-              isOrganic: x['is_organic'],
-              plateform: x['plateform'],
-              isEmployed: x['bist_du_derzeit_berufstätig?'],
-              salesExperience: x['wie_viel_vertriebserfahrung_hast_du?'],
-              answer: x['bitte_wähle_die_auf_dich_zutreffende_antwort_aus:_ich_bin_...'],
-              description: x['beschreibe_in_wenigen_sätzen,_warum_du_energy_guide_der_energy_&_finance_werden_möchtest.'],
-              fname: x['first_name'],
-              lname: x['last_name'],
-              email: x['email'],
-              phone: x['phone_number'],
-              state: x['state'],
-            }
-          ])
-        })).then(() => {
-          fs.unlinkSync(req.file.path, (err) => {
-            if (err) return apiResponse.BAD_REQUEST({ res, message: err.message })
-          })
-          console.log("File deleted!")
-        })
-        return apiResponse.OK({ res, message: messages.SUCCESS })
-      })
+        let fields = Object.keys(jsonObj[0])
+        let validateKeys = ['id', 'created_time', 'ad_id', 'ad_name', 'adset_id', 'adset_name', 'campaign_id', 'campaign_name', 'form_id', 'form_name', 'is_organic', 'platform', 'bist_du_derzeit_berufstätig?', 'wie_viel_vertriebserfahrung_hast_du?', 'bitte_wähle_die_auf_dich_zutreffende_antwort_aus:_ich_bin_...', 'beschreibe_in_wenigen_sätzen,&.', 'first_name', 'last_name', 'phone_number', 'email', 'state']
+
+        const missingField = fields.find(item => !validateKeys.includes(item))
+        if (missingField) return apiResponse.BAD_REQUEST({ res, message: messages.INVALID_DATA + missingField });
+      }
+
+      let data = [];
+      for (let i = 0; i < results.length; i++) {
+        let obj = {};
+        obj.id = results[i].id;
+        obj.createdTime = results[i].created_time;
+        obj.adId = results[i].ad_id;
+        obj.adName = results[i].ad_name;
+        obj.adsetId = results[i].adset_id;
+        obj.adsetName = results[i].adset_name;
+        obj.campaignId = results[i].campaign_id;
+        obj.campaignName = results[i].campaign_name;
+        obj.formId = results[i].form_id;
+        obj.formName = results[i].form_name;
+        obj.isOrganic = results[i].is_organic;
+        obj.plateform = results[i].platform;
+        obj.isEmployed = results[i]['bist_du_derzeit_berufstätig?'];
+        obj.salesExperience = results[i]['wie_viel_vertriebserfahrung_hast_du?'];
+        obj.answer = results[i]['bitte_wähle_die_auf_dich_zutreffende_antwort_aus:_ich_bin_...'];
+        obj.description = results[i]['beschreibe_in_wenigen_sätzen,_warum_du_energy_guide_der_energy_&_finance_werden_möchtest.'];
+        obj.fname = results[i].first_name;
+        obj.lname = results[i].last_name;
+        obj.email = results[i].phone_number;
+        obj.phone = results[i].email;
+        obj.state = results[i].state;
+        data.push(obj);
+      }
+      await DB.APPLYNOW.insertMany(data);
+      await fs.unlink(req.file.path, (err) => {
+        if (err) console.log(err);
+        return apiResponse.OK({ res, message: messages.SUCCESS });
+      });
+    });
   },
 
   /* Get ApplyNow API */

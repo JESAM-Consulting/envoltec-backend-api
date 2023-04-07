@@ -3,4 +3,5 @@ module.exports = {
   USER: require("./user.model"),
   ROLE: require("./role.model"),
   APPLYNOW: require("./apply-now.model"),
+  APPOINTMENT: require("./appointment.model"),
 };

@@ -10,5 +10,9 @@ module.exports = {
   APPLYNOW: {
     APIS: require("./applyNow/apply-now.controller"),
     VALIDATOR: require("./applyNow/apply-now.validator"),
+  },
+  APPOINTMENT: {
+    APIS: require("./appointment/appointment.controller"),
+    VALIDATOR: require("./appointment/appointment.validator"),
   }
 };
