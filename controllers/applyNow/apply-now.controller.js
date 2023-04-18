@@ -18,9 +18,7 @@ module.exports = exports = {
     csv().fromFile(req.file.path).then(async (jsonObj) => {
       for await (const i of jsonObj) {
         const findExistPhone = await DB.APPLYNOW.findOne({ $or: [{ phone: i.phone }, { email: i.email }] });
-        if (!findExistPhone) {
-          results.push(i);
-        }
+        if (!findExistPhone) results.push(i);
 
         let fields = Object.keys(jsonObj[0])
         let validateKeys = ['id', 'created_time', 'ad_id', 'ad_name', 'adset_id', 'adset_name', 'campaign_id', 'campaign_name', 'form_id', 'form_name', 'is_organic', 'platform', 'bist_du_derzeit_berufstätig?', 'wie_viel_vertriebserfahrung_hast_du?', 'bitte_wähle_die_auf_dich_zutreffende_antwort_aus:_ich_bin_...', 'beschreibe_in_wenigen_sätzen,&.', 'first_name', 'last_name', 'phone_number', 'email', 'state']

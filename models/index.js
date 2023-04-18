@@ -4,4 +4,5 @@ module.exports = {
   ROLE: require("./role.model"),
   APPLYNOW: require("./apply-now.model"),
   APPOINTMENT: require("./appointment.model"),
+  EMPLOYE: require("./employe.model"),
 };
