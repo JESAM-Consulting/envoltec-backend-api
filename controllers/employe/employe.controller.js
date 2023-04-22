@@ -95,7 +95,7 @@ module.exports = exports = {
     sortBy = sortBy || "createdAt";
     sortOrder = sortOrder || -1;
 
-    search ? query.$or = [{ userName: { $regex: search, $options: "i" } }] : ""
+    search ? query.$or = [{ fname: { $regex: search, $options: "i" } }, { lname: { $regex: search, $options: "i" } }] : ""
 
     query = (startDate && endDate)
       ? { createdAt: { $gte: new Date(startDate), $lte: new Date(endDate).setHours(23, 59, 59) } }
