@@ -19,4 +19,8 @@ module.exports = {
     APIS: require("./employe/employe.controller"),
     VALIDATOR: require("./employe/employe.validator"),
   },
+  ALPHA: {
+    APIS: require("./alpha/alpha.controller"),
+    VALIDATOR: require("./alpha/alpha.validator"),
+  }
 };

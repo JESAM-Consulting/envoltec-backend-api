@@ -5,4 +5,5 @@ module.exports = {
   APPLYNOW: require("./apply-now.model"),
   APPOINTMENT: require("./appointment.model"),
   EMPLOYE: require("./employe.model"),
+  ALPHA: require("./alpha.model"),
 };
