@@ -22,5 +22,13 @@ module.exports = {
   ALPHA: {
     APIS: require("./alpha/alpha.controller"),
     VALIDATOR: require("./alpha/alpha.validator"),
+  },
+  FINANCECONTACT: {
+    APIS: require("./finance.contact/finance.contact.controller"),
+    VALIDATOR: require("./finance.contact/finance.contact.validator"),
+  },
+  FINANCELANDING: {
+    APIS: require("./finance.landing/finance.landing.controller"),
+    VALIDATOR: require("./finance.landing/finance.landing.validator"),
   }
 };

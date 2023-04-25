@@ -11,31 +11,30 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-let upload = function ({ folderName }) {
-  return multer({
-    storage: multerS3({
-      s3: s3,
-      bucket: process.env.BUCKET,
-      contentType: multerS3.AUTO_CONTENT_TYPE,
-      metadata: function (req, file, cb) {
-        cb(null, { fieldName: file.fieldname })
-      },
-      key: function (req, file, cb) {
-        cb(
-          null,
-          folderName + "/" +
-          "enovltec" +
-          "-" +
-          Date.now().toString() +
-          Date.now().toString() + "." +
-          file.mimetype.split("/")[file.mimetype.split("/").length - 1]
-        )
-      }
-    }),
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.BUCKET,
+    // acl: 'public-read',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(
+        null,
+        "AWS" +
+        "-" +
+        Date.now().toString() +
+        Date.now().toString() +
+        "." +
+        file.mimetype.split("/")[file.mimetype.split("/").length - 1]
+      );
+    },
+  }),
 
-    limits: { fileSize: 1024 * 1024 * 20, files: 10 }
-  })
-}
+  limits: { fileSize: 1024 * 1024 * 20, files: 10 },
+});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
