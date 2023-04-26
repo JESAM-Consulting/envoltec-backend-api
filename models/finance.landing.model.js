@@ -6,7 +6,6 @@ const financeLandingSchema = new Schema(
         lname: { type: String },
         email: { type: String },
         phone: { type: String },
-        pincode: { type: String },
         city: { type: String },
         street: { type: String },
         applyTo: { type: String },
