@@ -24,7 +24,6 @@ module.exports = exports = {
 
     search ? query.$or = [
       { fname: { $regex: search, $options: "i" } },
-      { lname: { $regex: search, $options: "i" } },
       { email: { $regex: search, $options: "i" } },
       { reffrence: { $regex: search, $options: "i" } },
       { description: { $regex: search, $options: "i" } },
