@@ -5,6 +5,7 @@ module.exports = {
     create: validator({
         body: Joi.object({
             fname: Joi.string().required(),
+            phone: Joi.string().required(),
             email: Joi.string().required(),
             reffrence: Joi.string().required(),
             description: Joi.string(),

@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const financeContactSchema = new Schema(
     {
         fname: { type: String },
+        phone: { type: String },
         email: { type: String },
         reffrence: { type: String },
         description: { type: String }
