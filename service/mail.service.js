@@ -345,10 +345,11 @@ module.exports = {
                         <tr>
                           <td>
                             <p style="padding: 1rem 2rem">
-                              <b> Hallo ${data.fname} ${data.lname}, </b>
+                              <b> Hallo ${data.fname}, </b>
                             </p>
                             <ul style="padding: 0rem 3rem; color: #585d6a; font-size: 14px">
                               <li> E-Mail-Addresse: ${data.email} </li>
+                              <li> Telefónnummer: ${data.phone} </li>
                               <li> Betreff: ${data.reffrence} </li>
                               <li> Personliche Nachricht: ${data.description} </li>
                             </ul>
