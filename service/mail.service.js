@@ -210,18 +210,18 @@ module.exports = {
     },
     sendDataToEmail: async ({ data }) => {
         var transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
+            host: process.env.FE_EMAIL_HOST,
+            port: process.env.FE_EMAIL_PORT,
             secure: true,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD,
+                user: process.env.FE_EMAIL_USER,
+                pass: process.env.FE_EMAIL_PASSWORD,
             },
         });
 
         let mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.TO_EMAIL,
+            from: process.env.FE_EMAIL_USER,
+            to: process.env.FE_TO_EMAIL,
             subject: "Appointment data",
             text: "User form data",
             html: `<!DOCTYPE html>
@@ -291,18 +291,18 @@ module.exports = {
     },
     financeContactEmail: async ({ data }) => {
         var transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
+            host: process.env.FE_EMAIL_HOST,
+            port: process.env.FE_EMAIL_PORT,
             secure: true,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD,
+                user: process.env.FE_EMAIL_USER,
+                pass: process.env.FE_EMAIL_PASSWORD,
             },
         });
 
         let mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.TO_EMAIL,
+            from: process.env.FE_EMAIL_USER,
+            to: process.env.FE_TO_EMAIL,
             subject: "Appointment data",
             text: "User form data",
             html: `<!DOCTYPE html>
@@ -372,18 +372,18 @@ module.exports = {
     },
     financeLandingEmail: async ({ data }) => {
         var transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
+            host: process.env.FE_EMAIL_HOST,
+            port: process.env.FE_EMAIL_PORT,
             secure: true,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD,
+                user: process.env.FE_EMAIL_USER,
+                pass: process.env.FE_EMAIL_PASSWORD,
             },
         });
 
         let mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.TO_EMAIL,
+            from: process.env.FE_EMAIL_USER,
+            to: process.env.FE_TO_EMAIL,
             subject: "Appointment data",
             text: "User form data",
             html: `<!DOCTYPE html>
