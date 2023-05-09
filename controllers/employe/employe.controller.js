@@ -81,7 +81,7 @@ module.exports = exports = {
           console.log("eror", eror)
           return apiResponse.CATCH_ERROR(res, eror.message);
         })
-        return apiResponse.OK({ res, message: messages.SUCCESS});
+        return apiResponse.OK({ res, message: messages.SUCCESS });
       });
     });
   },
@@ -97,9 +97,7 @@ module.exports = exports = {
 
     search ? query.$or = [{ fname: { $regex: search, $options: "i" } }, { lname: { $regex: search, $options: "i" } }] : ""
 
-    query = (startDate && endDate)
-      ? { createdAt: { $gte: new Date(startDate), $lte: new Date(endDate).setHours(23, 59, 59) } }
-      : query;
+    startDate && endDate ? query.createdAt = { $gte: new Date(startDate), $lte: new Date(endDate).setHours(23, 59, 59) } : query;
 
     query = color ? { ...query, color: color } : query;
 
